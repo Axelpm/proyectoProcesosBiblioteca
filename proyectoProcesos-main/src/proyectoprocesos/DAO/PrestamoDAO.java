@@ -70,6 +70,30 @@ public class PrestamoDAO {
         return idUsuario;
     }
     
+    public static boolean aumentarPrestamos(String matricula){
+        int idUsuario = getIdUsuario(matricula);
+        String consultaGET = "SELECT prestamosVigentes FROM usuario WHERE usuario.idUsuario = ?";
+        String consultaUP = "UPDATE usuario SET prestamosVigentes=? WHERE usuario.idUsuario = ?";
+        Connection conn = ConexionBD.abrirConexionBD();
+        
+        if(conn != null){
+            try{
+                PreparedStatement ps = conn.prepareStatement(consultaGET);
+                ps.setInt(1, idUsuario);
+                ResultSet rs= ps.executeQuery();
+                int prestamosVigentes = rs.getInt("prestamosVigentes");
+                prestamosVigentes = prestamosVigentes+1;
+                ps = conn.prepareStatement(consultaUP);
+                ps.setInt(1, prestamosVigentes);
+                ps.setInt(2, idUsuario);
+                ps.executeUpdate();
+            }catch(SQLException e){
+                return false;
+            }
+        }
+        return true;
+    }
+    
     public static int registrarPrestamo(String matricula, String isbn){
         Connection conn = ConexionBD.abrirConexionBD();
         String CONSULTA = "INSERT INTO prestamo (fechaLimite, fechaInicioPrestamo, idUsuario, idRecursodocumental) VALUES (?,?,?,?);";
@@ -104,6 +128,10 @@ public class PrestamoDAO {
                 ps.setInt(3, idUsuario);
                 
                 ps.executeUpdate();
+                
+                if(!aumentarPrestamos(matricula)){
+                    return -1;
+                }
                 
             }catch(SQLException e){
                 System.out.println("Error al registrar prestamo");

@@ -63,10 +63,12 @@ public class FXMLRegistrarPrestamoController implements Initializable {
     private void ClickRegistrar(ActionEvent event) {
         if(validarFormulario()){
             lb_datosInvalidos.setVisible(false);
-            if(registrarPrestamo(tf_matricula.getText()) == 0){
+            if(registrarPrestamo(tf_matricula.getText(), tf_ISBN.getText()) == 0){
                 Mensaje.mostrarAlerta("Registro exitoso", "El registro se guardó de manera exitosa", Alert.AlertType.INFORMATION);
                 tf_ISBN.setText("");
                 tf_matricula.setText("");
+            }else{
+                Mensaje.mostrarAlerta("Registro fallido", "Favor de intentar el registro mas tarde", Alert.AlertType.ERROR);
             }
         }else{
             lb_datosInvalidos.setVisible(true);
@@ -77,7 +79,7 @@ public class FXMLRegistrarPrestamoController implements Initializable {
     private void ClickCancelar(ActionEvent event) {
         Stage stage = (Stage) lb_prestamo.getScene().getWindow();
         try{                    
-            String path = "FXMLMenu.fxml";
+            String path = "FXMLLogin.fxml";
             Parent cargaFXMLPrincipal= FXMLLoader.load(getClass().getResource(path));
             Scene scenePrincipal= new Scene(cargaFXMLPrincipal);
             stage.setScene(scenePrincipal);
