@@ -71,7 +71,7 @@ public class FXMLConsultaLibroController implements Initializable {
         this.colEditorial.setCellValueFactory(new PropertyValueFactory("editorial"));
         this.colEdicion.setCellValueFactory(new PropertyValueFactory("edicion"));
         this.colSubArea.setCellValueFactory(new PropertyValueFactory("subarea"));
-        this.colDisponibles.setCellFactory(new PropertyValueFactory("numeroDisponible"));
+        this.colDisponibles.setCellValueFactory(new PropertyValueFactory("numeroDisponible"));
     }
     
     private void cargarInformacionTablaLibros(){
