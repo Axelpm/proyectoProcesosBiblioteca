@@ -78,6 +78,9 @@ public class PrestamoDAO {
         
         if(conn != null){
             try{
+                if(idUsuario == -1)
+                    throw new SQLException();
+                
                 PreparedStatement ps = conn.prepareStatement(consultaGET);
                 ps.setInt(1, idUsuario);
                 ResultSet rs= ps.executeQuery();
@@ -119,19 +122,19 @@ public class PrestamoDAO {
                 PreparedStatement ps = conn.prepareStatement(CONSULTA);
                 ps.setDate(1, Date.valueOf(fechaFinal));
                 ps.setDate(2, Date.valueOf(fechaInicio));
-                ps.setInt(4, idRecurso);
                 
                 int idUsuario = getIdUsuario(matricula);
                 if(idUsuario == -1)
                     throw new SQLException();
+                if(idRecurso == -1)
+                    throw new SQLException();
                 
                 ps.setInt(3, idUsuario);
+                ps.setInt(4, idRecurso);
                 
                 ps.executeUpdate();
                 
-                if(!aumentarPrestamos(matricula)){
-                    return -1;
-                }
+                aumentarPrestamos(matricula);
                 
             }catch(SQLException e){
                 System.out.println("Error al registrar prestamo");
