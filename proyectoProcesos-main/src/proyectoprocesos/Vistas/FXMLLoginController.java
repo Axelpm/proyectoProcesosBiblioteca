@@ -19,6 +19,7 @@ import proyectoprocesos.POJO.Usuario;
 import proyectoprocesos.Util.Mensaje;
 
 public class FXMLLoginController implements Initializable {
+    UsuarioDAO conectar = new UsuarioDAO();
 
     @FXML
     private TextField tf_username;
@@ -54,34 +55,33 @@ public class FXMLLoginController implements Initializable {
     }
     
     private void consultarUsuarioBD (){
-        Usuario usuarioRecuperado = UsuarioDAO.comprobarDatosUsuario(tf_username.getText(), tf_password.getText());
-        if(usuarioRecuperado != null){
-            irAlMenuPrincipal();
-        }else{
-            lb_CampoVacio.setText("Usuario o contraseña incorrectos");
-        }        
-    }
-    
-    private void irAlMenuPrincipal (){
-        Stage stage= (Stage) lb_CampoVacio.getScene().getWindow();
-        try{                    
-            Parent cargaFXMLPrincipal= FXMLLoader.load(getClass().getResource("FXMLMenu.fxml"));
-            Scene scenePrincipal= new Scene(cargaFXMLPrincipal);
-            stage.setScene(scenePrincipal);
-            stage.show();    
-        }catch(IOException e){
-            Mensaje.mostrarAlerta("Error de aplicación", "Lo sentimos no se ha podido acceder a la sección Recursos"
-                + "Documentales", Alert.AlertType.ERROR);
-        }
-    }
-    
-    /*private void consultarUsuarioBD(){
         try{
             Usuario usuarioRecuperado = UsuarioDAO.comprobarDatosUsuario(tf_username.getText(), tf_password.getText());
-            String puesto = con
-        }catch(NullPointerException expNull){ 
+            String puesto = conectar.encontrarUsuarioEmpleado(usuarioRecuperado.getIdUsuario());
+            switch(puesto){
+                case "Auxiliar": case "Encargado":
+                    navegacionEntreVentanas("FXMLSeleccionUsuarioPrestamo.fxml");
+                    break;
+                case "Estudiante":
+                    navegacionEntreVentanas("FXMLConsultaLibro.fxml");
+                    break;
+                case "Jefe":
+                    navegacionEntreVentanas("FXMLConsultarEmpleado.fxml");
+            }
+        }catch(NullPointerException expNull){
             lb_CampoVacio.setText("Usuario o contraseña incorrectos");
         }
     }
-    */
+    
+    public void navegacionEntreVentanas(String url){
+        try {
+            Stage stage = (Stage) lb_CampoVacio.getScene().getWindow();
+            Scene scene = new Scene(FXMLLoader.load(getClass().getResource(url)));
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        }catch(IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 }
