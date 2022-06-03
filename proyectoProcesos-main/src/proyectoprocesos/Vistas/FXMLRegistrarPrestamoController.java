@@ -101,33 +101,33 @@ public class FXMLRegistrarPrestamoController implements Initializable {
      private boolean validarFormulario(){
         boolean respuesta = true;
         if(cb_RecursoDocumental.getSelectionModel().isEmpty()){
-            respuesta = false;
+            return false;
         }
         if(tf_ISBN.getText().isEmpty()){
-            respuesta = false;
+            return false;
         }else{
             if(!validarISBN(tf_ISBN.getText())){
-                respuesta = false;
                 Mensaje.mostrarAlerta("ISBN no válido", "El ISBN introducido no es válido, favor de corregirlo.", Alert.AlertType.INFORMATION);
+                return false;
             }
             if(!validarRecursoBD(tf_ISBN.getText())){
-                respuesta = false;
                 Mensaje.mostrarAlerta("ISBN no encontrado", "El ISBN introducido no se encuentra en nuestra base de datos, favor de registrarlo.", Alert.AlertType.INFORMATION);
+                return false;
             }
             if(verificarPrestamoVigente(tf_ISBN.getText())){
-                respuesta = false;
+                return false;
             }
         }
         if(tf_matricula.getText().isEmpty()){
-            respuesta = false;
+            return false;
         }else{
             if(!validarMatricula(tf_matricula.getText())){
-                respuesta = false;
                 Mensaje.mostrarAlerta("Matrícula no válida", "La matrícula introducida no es válida, verifique que esté escrita de manera correcta.", Alert.AlertType.INFORMATION);
+                return false;
             }
             if(verificarPrestamos(tf_matricula.getText())){
-                respuesta = false;
                 Mensaje.mostrarAlerta("Préstamos activos máximo alcanzado", "Imposible registrar el préstamo, este usuario ha alcanzado el máximo de prestaciones activas.", Alert.AlertType.INFORMATION);
+                return false;
             }
         }             
         

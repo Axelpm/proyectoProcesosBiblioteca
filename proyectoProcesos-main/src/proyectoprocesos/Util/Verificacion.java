@@ -42,7 +42,7 @@ public class Verificacion {
         if(isbn.length() == 9){
             if(inicioMatricula.equals("FO-")){
                 try{
-                    int numero = Integer.parseInt(isbn.substring(1));
+                    int numero = Integer.parseInt(isbn.substring(4));
                     respuesta = true;                            
                 }catch(NumberFormatException ex){
                     System.out.println("Error: ISBN invalida");
