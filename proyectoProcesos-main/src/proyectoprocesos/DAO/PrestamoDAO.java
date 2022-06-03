@@ -97,6 +97,58 @@ public class PrestamoDAO {
         return prestamosVigentes;
     }
     
+    public static int recuperarPiezasDisponibles(String isbn){
+        String consultaGET = "SELECT numeroDisponible FROM recursodocumental WHERE recursodocumental.isbn = ?";
+        int piezasDisponibles = -1;
+        
+        Connection conn = ConexionBD.abrirConexionBD();
+        if(conn != null){
+            try{
+                PreparedStatement ps = conn.prepareStatement(consultaGET);
+                ps.setString(1, isbn);
+                ResultSet rs= ps.executeQuery();
+                
+                if(rs.next()){
+                    piezasDisponibles = rs.getInt("numeroDisponible");
+                }
+            }catch(SQLException e){
+                System.out.println(e);
+                return -1;
+            }
+        }
+        
+        return piezasDisponibles;
+    }
+    
+    public static boolean disminuirPiezas(String isbn){
+        int piezasDisponibles = recuperarPiezasDisponibles(isbn);
+        String consultaUP = "UPDATE recursodocumental SET numeroDisponible=? WHERE recursodocumental.isbn = ?";
+        Connection conn = ConexionBD.abrirConexionBD();
+        
+        if(conn != null){
+            try{
+                if(piezasDisponibles == -1)
+                    return false;
+                
+                if(piezasDisponibles == 0){
+                    Mensaje.mostrarAlerta("Imposible registrar prestamo", "Ya no hay piezas disponibles del recurso que busca prestarse, intentelo en otra ocasion, una disculpa.", Alert.AlertType.INFORMATION);
+                    return false;
+                }
+                
+                piezasDisponibles--;
+                PreparedStatement ps = conn.prepareStatement(consultaUP);
+                ps.setInt(1, piezasDisponibles);
+                ps.setString(2, isbn);
+                ps.executeUpdate();
+                
+            }catch(SQLException e){
+                System.out.println(e);
+                return false;
+            }
+        }
+        return true;
+    }    
+    
     public static boolean aumentarPrestamos(String matricula){
         int idUser = getIdUsuario(matricula);
         int prestamosVigentes = recuperarPrestamosVigentes(matricula);
@@ -117,6 +169,7 @@ public class PrestamoDAO {
                 ps.executeUpdate();
                 
             }catch(SQLException e){
+                System.out.println(e);
                 return false;
             }
         }
@@ -142,6 +195,9 @@ public class PrestamoDAO {
         cal.add(Calendar.DAY_OF_MONTH, 5);  
         String fechaFinal = sdf.format(cal.getTime());  
         
+        if(!disminuirPiezas(isbn))
+            return -1;
+        
         if(conn != null){
             try{
                 int idRecurso = recuperarIDRecurso(isbn);
@@ -161,6 +217,7 @@ public class PrestamoDAO {
                 ps.executeUpdate();
                 
                 aumentarPrestamos(matricula);
+                
                 
             }catch(SQLException e){
                 System.out.println("Error al registrar prestamo");
