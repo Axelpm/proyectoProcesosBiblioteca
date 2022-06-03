@@ -76,7 +76,7 @@ public class Verificacion {
                 return false;
             }
         }else{
-            Mensaje.mostrarAlerta("No hay conexion", "No se ha podido concretar la conexion con la base de datos", Alert.AlertType.ERROR);
+            Mensaje.mostrarAlerta("No hay conexion", "No se ha podido concretar la conexion con la base de datos", Alert.AlertType.INFORMATION);
             return false;
         }
         
@@ -103,7 +103,7 @@ public class Verificacion {
             }
             
             if(!isbn.equals(isbnRecuperada)){
-                Mensaje.mostrarAlerta("Recurso no encontrado", "El recurso no se encuentra registrado en el sistema, imposible continuar con el préstamo, favor de registrarlo.", Alert.AlertType.NONE);
+                Mensaje.mostrarAlerta("Recurso no encontrado", "El recurso no se encuentra registrado en el sistema, imposible continuar con el préstamo, favor de registrarlo.", Alert.AlertType.INFORMATION);
                 return false;
             }else{
                 
@@ -158,11 +158,11 @@ public class Verificacion {
                 }
                 
             }else{
-                Mensaje.mostrarAlerta("No hay conexion", "No se ha podido concretar la conexion con la base de datos", Alert.AlertType.ERROR);
+                Mensaje.mostrarAlerta("No hay conexion", "No se ha podido concretar la conexion con la base de datos", Alert.AlertType.INFORMATION);
                 return false;
             }
         }else{
-            Mensaje.mostrarAlerta("Matricula no existente", "La matricula no esta registrada en nuestro sistema, por favor proceda con su registro antes de seguir con el prestamo", Alert.AlertType.ERROR);
+            Mensaje.mostrarAlerta("Matricula no existente", "La matricula no esta registrada en nuestro sistema, por favor proceda con su registro antes de seguir con el prestamo", Alert.AlertType.INFORMATION);
         }
         
         return excedioPrestamos;

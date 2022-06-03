@@ -138,7 +138,7 @@ public class PrestamoDAO {
                 return -1;
             }
         }else{
-            Mensaje.mostrarAlerta("Conexion no disponible", "Imposible generar el registro del prestamo, la conexion no se encuentra disponible, una disculpa.", Alert.AlertType.ERROR);
+            Mensaje.mostrarAlerta("Conexion no disponible", "Imposible generar el registro del prestamo, la conexion no se encuentra disponible, una disculpa.", Alert.AlertType.INFORMATION);
             return -1;
         }
         
@@ -162,7 +162,7 @@ public class PrestamoDAO {
                 }
                 
                 if(idRecuperada == idRecurso){
-                    Mensaje.mostrarAlerta("Recurso se encuentra en prestamo", "Imposible concretar el prestamo, el recurso ya se encuentra en un prestamo vigente.", Alert.AlertType.ERROR);
+                    Mensaje.mostrarAlerta("Recurso se encuentra en prestamo", "Imposible concretar el prestamo, el recurso ya se encuentra en un prestamo vigente.", Alert.AlertType.INFORMATION);
                     return true;
                 }
             }catch(SQLException e){
@@ -170,7 +170,7 @@ public class PrestamoDAO {
                 return true;
             }
         }else{
-            Mensaje.mostrarAlerta("No hay conexion", "No se ha podido concretar la conexion con la base de datos", Alert.AlertType.ERROR);
+            Mensaje.mostrarAlerta("No hay conexion", "No se ha podido concretar la conexion con la base de datos", Alert.AlertType.INFORMATION);
             return true;
         }
         

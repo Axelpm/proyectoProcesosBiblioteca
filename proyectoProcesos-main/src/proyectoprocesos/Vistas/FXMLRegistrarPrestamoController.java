@@ -69,7 +69,7 @@ public class FXMLRegistrarPrestamoController implements Initializable {
                 tf_ISBN.setText("");
                 tf_matricula.setText("");
             }else{
-                Mensaje.mostrarAlerta("Registro fallido", "Favor de intentar el registro mas tarde", Alert.AlertType.ERROR);
+                Mensaje.mostrarAlerta("Registro fallido", "Favor de intentar el registro mas tarde", Alert.AlertType.INFORMATION);
             }
         }else{
             lb_datosInvalidos.setVisible(true);
@@ -87,7 +87,7 @@ public class FXMLRegistrarPrestamoController implements Initializable {
             stage.show();    
         }catch(IOException e){
             Mensaje.mostrarAlerta("Error de aplicación", "Lo sentimos no se ha podido acceder a la sección de registro de préstamos"
-                + "Documentales", Alert.AlertType.ERROR);
+                + "Documentales", Alert.AlertType.INFORMATION);
         }
     }
     
@@ -108,11 +108,11 @@ public class FXMLRegistrarPrestamoController implements Initializable {
         }else{
             if(!validarISBN(tf_ISBN.getText())){
                 respuesta = false;
-                Mensaje.mostrarAlerta("ISBN no válido", "El ISBN introducido no es válido, favor de corregirlo.", Alert.AlertType.WARNING);
+                Mensaje.mostrarAlerta("ISBN no válido", "El ISBN introducido no es válido, favor de corregirlo.", Alert.AlertType.INFORMATION);
             }
             if(!validarRecursoBD(tf_ISBN.getText())){
                 respuesta = false;
-                Mensaje.mostrarAlerta("ISBN no encontrado", "El ISBN introducido no se encuentra en nuestra base de datos, favor de registrarlo.", Alert.AlertType.WARNING);
+                Mensaje.mostrarAlerta("ISBN no encontrado", "El ISBN introducido no se encuentra en nuestra base de datos, favor de registrarlo.", Alert.AlertType.INFORMATION);
             }
             if(verificarPrestamoVigente(tf_ISBN.getText())){
                 respuesta = false;
@@ -123,11 +123,11 @@ public class FXMLRegistrarPrestamoController implements Initializable {
         }else{
             if(!validarMatricula(tf_matricula.getText())){
                 respuesta = false;
-                Mensaje.mostrarAlerta("Matrícula no válida", "La matrícula introducida no es válida, verifique que esté escrita de manera correcta.", Alert.AlertType.WARNING );
+                Mensaje.mostrarAlerta("Matrícula no válida", "La matrícula introducida no es válida, verifique que esté escrita de manera correcta.", Alert.AlertType.INFORMATION);
             }
             if(verificarPrestamos(tf_matricula.getText())){
                 respuesta = false;
-                Mensaje.mostrarAlerta("Préstamos activos máximo alcanzado", "Imposible registrar el préstamo, este usuario ha alcanzado el máximo de prestaciones activas.", Alert.AlertType.ERROR);
+                Mensaje.mostrarAlerta("Préstamos activos máximo alcanzado", "Imposible registrar el préstamo, este usuario ha alcanzado el máximo de prestaciones activas.", Alert.AlertType.INFORMATION);
             }
         }             
         
