@@ -63,7 +63,7 @@ public class PrestamoDAO {
                     }
                 }catch(SQLException e){
                     System.out.println("Error al recuperar el idRecursodocumental");
-                    return idUsuario;
+                    return -1;
                 }
         }
         
@@ -143,5 +143,37 @@ public class PrestamoDAO {
         }
         
         return 0;
+    }
+    
+    public static boolean seEncuentraEnPrestamo(String isbn){
+        int idRecurso = recuperarIDRecurso(isbn);
+        Connection conn = ConexionBD.abrirConexionBD();
+        
+        if(conn != null){
+            String CONSULTA = "SELECT idRecursodocumental FROM prestamo WHERE prestamo.idRecursodocumental = ?";
+            int idRecuperada = -1;
+            
+            try{
+                PreparedStatement ps = conn.prepareStatement(CONSULTA);
+                ps.setInt(1, idRecurso);
+                ResultSet rs= ps.executeQuery();
+                if(rs.next()){
+                    idRecuperada = rs.getInt("idRecursodocumental");
+                }
+                
+                if(idRecuperada == idRecurso){
+                    Mensaje.mostrarAlerta("Recurso se encuentra en prestamo", "Imposible concretar el prestamo, el recurso ya se encuentra en un prestamo vigente.", Alert.AlertType.ERROR);
+                    return true;
+                }
+            }catch(SQLException e){
+                System.out.println("Error en la base de datos");
+                return true;
+            }
+        }else{
+            Mensaje.mostrarAlerta("No hay conexion", "No se ha podido concretar la conexion con la base de datos", Alert.AlertType.ERROR);
+            return true;
+        }
+        
+        return false;
     }
 }

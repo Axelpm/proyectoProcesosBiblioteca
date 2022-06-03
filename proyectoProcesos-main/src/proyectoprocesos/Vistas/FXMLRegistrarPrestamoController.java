@@ -30,6 +30,7 @@ import proyectoprocesos.Util.Verificacion;
 import static proyectoprocesos.Util.Verificacion.validarISBN;
 import static proyectoprocesos.Util.Verificacion.validarMatricula;
 import static proyectoprocesos.Util.Verificacion.validarRecursoBD;
+import static proyectoprocesos.Util.Verificacion.verificarPrestamoVigente;
 import static proyectoprocesos.Util.Verificacion.verificarPrestamos;
 
 /**
@@ -61,7 +62,7 @@ public class FXMLRegistrarPrestamoController implements Initializable {
 
     @FXML
     private void ClickRegistrar(ActionEvent event) {
-        /*if(validarFormulario()){
+        if(validarFormulario()){
             lb_datosInvalidos.setVisible(false);
             if(registrarPrestamo(tf_matricula.getText(), tf_ISBN.getText()) == 0){
                 Mensaje.mostrarAlerta("Registro exitoso", "El registro se guardó de manera exitosa", Alert.AlertType.INFORMATION);
@@ -72,7 +73,7 @@ public class FXMLRegistrarPrestamoController implements Initializable {
             }
         }else{
             lb_datosInvalidos.setVisible(true);
-        }*/
+        }
     }
 
     @FXML
@@ -112,6 +113,9 @@ public class FXMLRegistrarPrestamoController implements Initializable {
             if(!validarRecursoBD(tf_ISBN.getText())){
                 respuesta = false;
                 Mensaje.mostrarAlerta("ISBN no encontrado", "El ISBN introducido no se encuentra en nuestra base de datos, favor de registrarlo.", Alert.AlertType.WARNING);
+            }
+            if(verificarPrestamoVigente(tf_ISBN.getText())){
+                respuesta = false;
             }
         }
         if(tf_matricula.getText().isEmpty()){

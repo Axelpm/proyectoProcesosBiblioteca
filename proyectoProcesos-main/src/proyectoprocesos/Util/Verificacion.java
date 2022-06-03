@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.scene.control.Alert;
 import proyectoprocesos.Conexion.ConexionBD;
+import static proyectoprocesos.DAO.PrestamoDAO.seEncuentraEnPrestamo;
 
 /**
  *
@@ -166,5 +167,10 @@ public class Verificacion {
         
         return excedioPrestamos;
     }
-    
-}
+    public static boolean verificarPrestamoVigente(String isbn){
+        if(seEncuentraEnPrestamo(isbn)){
+            return true;
+        }
+        return false;
+    }
+}   
