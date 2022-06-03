@@ -57,7 +57,6 @@ public class FXMLModificarEmpleadoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         formatoNumerico();
-        comboBoxPuesto.getItems().addAll("Encargado", "Auxiliar");
         ingresarInformacionEmpleado();
     }    
 
@@ -126,7 +125,16 @@ public class FXMLModificarEmpleadoController implements Initializable {
         textoNombre.setText(empleadoInfo.getNombre());
         textoNombreUsuario.setText(empleadoInfo.getNombreUsuario());
         textoTelefono.setText(empleadoInfo.getTelefono());
-        comboBoxPuesto.setValue(empleadoInfo.getPuesto());
+        if(empleadoInfo.getPuesto().equals("Jefe"))
+        {
+            comboBoxPuesto.getItems().addAll("Jefe");
+            comboBoxPuesto.setValue(empleadoInfo.getPuesto());
+        }
+        else
+        {    
+            comboBoxPuesto.getItems().addAll("Encargado", "Auxiliar");
+            comboBoxPuesto.setValue(empleadoInfo.getPuesto());
+        }
     }
     
     public boolean datosLlenos(){
