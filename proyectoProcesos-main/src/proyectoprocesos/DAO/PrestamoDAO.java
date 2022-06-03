@@ -85,11 +85,13 @@ public class PrestamoDAO {
                 ps.setInt(1, idUsuario);
                 ResultSet rs= ps.executeQuery();
                 int prestamosVigentes = rs.getInt("prestamosVigentes");
+                
                 prestamosVigentes = prestamosVigentes+1;
                 ps = conn.prepareStatement(consultaUP);
                 ps.setInt(1, prestamosVigentes);
                 ps.setInt(2, idUsuario);
                 ps.executeUpdate();
+                
             }catch(SQLException e){
                 return false;
             }
