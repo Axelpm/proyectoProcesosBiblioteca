@@ -47,9 +47,32 @@ public class PrestamoDAO {
         return idUsuario;
     }
     
-    public static int registrarPrestamo(String matricula){
+    public static int recuperarIDRecurso(String isbn){
         Connection conn = ConexionBD.abrirConexionBD();
-        String CONSULTA = "INSERT INTO prestamo (fechaLimite, fechaInicioPrestamo, idUsuario) VALUES (?,?,?);";
+        String CONSULTA_ID = "SELECT idRecursodocumental FROM recursodocumental WHERE recursodocumental.isbn = ?";
+        int idUsuario = -1;
+        
+        if(conn != null){
+            try{
+                    PreparedStatement ps = conn.prepareStatement(CONSULTA_ID);
+                    ps.setString(1, isbn);
+                    ResultSet rs= ps.executeQuery();
+                    
+                    if(rs.next()){
+                       idUsuario = rs.getInt("idUsuario");
+                    }
+                }catch(SQLException e){
+                    System.out.println("Error al recuperar el idUsuario");
+                    return idUsuario;
+                }
+        }
+        
+        return idUsuario;
+    }
+    
+    public static int registrarPrestamo(String matricula, String isbn){
+        Connection conn = ConexionBD.abrirConexionBD();
+        String CONSULTA = "INSERT INTO prestamo (fechaLimite, fechaInicioPrestamo, idUsuario, idRecursodocumental) VALUES (?,?,?,?);";
         
         LocalDateTime dtm = LocalDateTime.now();
         String fechaInicio = ""+dtm.toLocalDate();
@@ -68,9 +91,11 @@ public class PrestamoDAO {
         
         if(conn != null){
             try{
+                int idRecurso = recuperarIDRecurso(isbn);
                 PreparedStatement ps = conn.prepareStatement(CONSULTA);
                 ps.setDate(1, Date.valueOf(fechaFinal));
                 ps.setDate(2, Date.valueOf(fechaInicio));
+                ps.setInt(4, idRecurso);
                 
                 int idUsuario = getIdUsuario(matricula);
                 if(idUsuario == -1)
