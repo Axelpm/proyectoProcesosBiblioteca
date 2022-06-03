@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectoprocesos.Vistas.FXMLMenuController">
+   <children>
+      <Label fx:id="lb_Menu" layoutX="235.0" layoutY="37.0" text="Menú">
+         <font>
+            <Font name="Segoe UI Bold Italic" size="50.0" />
+         </font>
+      </Label>
+      <Button layoutX="187.0" layoutY="126.0" mnemonicParsing="false" onAction="#clickRegistrarPrestamo" prefHeight="38.0" prefWidth="226.0" text="Registrar préstamo">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="204.0" layoutY="191.0" mnemonicParsing="false" onAction="#clickConsultarRecursos" text="Consultar recursos">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="187.0" layoutY="250.0" mnemonicParsing="false" onAction="#clickGestionEmpleados" text="Gestión de empleados">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="109.0" fitWidth="138.0" layoutX="463.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/logoUV.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

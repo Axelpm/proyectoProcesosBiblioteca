@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectoprocesos.Vistas.FXMLRegistrarPrestamoController">
+   <children>
+      <Label fx:id="lb_prestamo" layoutX="144.0" layoutY="26.0" text="Registro de préstamo">
+         <font>
+            <Font name="Segoe UI Bold Italic" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="127.0" layoutY="85.0" text="¿Qué tipo de recurso documental solicita el prestatario?">
+         <font>
+            <Font name="Segoe UI" size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cb_RecursoDocumental" layoutX="176.0" layoutY="111.0" prefHeight="25.0" prefWidth="219.0" promptText="Seleccione el recurso documental" />
+      <Label layoutX="152.0" layoutY="162.0" text="Introduzca el ISBN del recurso documental:">
+         <font>
+            <Font name="Segoe UI" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tf_ISBN" layoutX="204.0" layoutY="196.0" />
+      <Label layoutX="168.0" layoutY="236.0" text="Introduzca la matrícula del estudiante:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tf_matricula" layoutX="204.0" layoutY="270.0" />
+      <Button layoutX="519.0" layoutY="361.0" mnemonicParsing="false" onAction="#ClickRegistrar" text="Registrar" />
+      <Button layoutX="435.0" layoutY="361.0" mnemonicParsing="false" onAction="#ClickCancelar" text="Cancelar" />
+      <Label fx:id="lb_datosInvalidos" layoutX="45.0" layoutY="353.0" text="Datos invalidos, verifique el formulario" textFill="RED" visible="false">
+         <font>
+            <Font name="Segoe UI Bold Italic" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

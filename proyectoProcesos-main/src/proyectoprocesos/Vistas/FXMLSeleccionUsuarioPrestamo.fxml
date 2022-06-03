@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectoprocesos.Vistas.FXMLSeleccionUsuarioPrestamoController">
+   <children>
+      <Label fx:id="lb_prestamo" layoutX="63.0" layoutY="111.0" text="¿Qué tipo de usuario solicita el prestamo?" textAlignment="CENTER">
+         <font>
+            <Font name="Segoe UI Bold" size="35.0" />
+         </font>
+      </Label>
+      <Button layoutX="93.0" layoutY="252.0" mnemonicParsing="false" onAction="#clickEstudiante" text="Estudiante">
+         <font>
+            <Font name="Segoe UI" size="40.0" />
+         </font>
+      </Button>
+      <Button layoutX="472.0" layoutY="252.0" mnemonicParsing="false" onAction="#clickProfesor" text="Profesor">
+         <font>
+            <Font name="Segoe UI" size="40.0" />
+         </font>
+      </Button>
+      <Button layoutX="668.0" layoutY="540.0" mnemonicParsing="false" onAction="#ClickCancelar" text="Cancelar">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

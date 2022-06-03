@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="569.0" prefWidth="1057.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectoprocesos.Vistas.FXMLConsultaLibroController">
+   <children>
+      <Label layoutX="25.0" layoutY="30.0" text="Consultar Libros">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="25.0" layoutY="77.0" text="Buscar por">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="lbBusqueda" layoutX="94.0" layoutY="75.0" prefHeight="25.0" prefWidth="193.0" promptText="Autor/titulo" />
+      <TableView fx:id="tbLibros" layoutX="23.0" layoutY="108.0" prefHeight="378.0" prefWidth="1004.0">
+        <columns>
+          <TableColumn fx:id="colTitulo" prefWidth="122.0" text="Titulo" />
+          <TableColumn fx:id="colAutor" prefWidth="141.0" text="Autor" />
+            <TableColumn fx:id="colClasificacion" prefWidth="119.0" text="Clasificación" />
+            <TableColumn fx:id="colISBN" prefWidth="90.0" text="ISBN" />
+            <TableColumn fx:id="colAnio" prefWidth="86.0" text="Año" />
+            <TableColumn fx:id="colEditorial" prefWidth="95.0" text="Editorial" />
+            <TableColumn fx:id="colEdicion" prefWidth="95.0" text="Edición" />
+            <TableColumn fx:id="colArea" prefWidth="75.0" text="Área" />
+            <TableColumn fx:id="colSubArea" prefWidth="104.0" text="Subárea" />
+            <TableColumn fx:id="colDisponibles" prefWidth="75.0" text="Disponibles" />
+        </columns>
+      </TableView>
+      <Button layoutX="836.0" layoutY="514.0" mnemonicParsing="false" onAction="#clicSalir" prefHeight="25.0" prefWidth="73.0" text="Salir" />
+   </children>
+</AnchorPane>
