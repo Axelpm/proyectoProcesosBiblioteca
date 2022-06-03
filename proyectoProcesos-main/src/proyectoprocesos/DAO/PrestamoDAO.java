@@ -1,4 +1,4 @@
-/*
+  /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -47,7 +47,7 @@ public class PrestamoDAO {
         return idUsuario;
     }
     
-    public static void registrarPrestamo(String matricula){
+    public static int registrarPrestamo(String matricula){
         Connection conn = ConexionBD.abrirConexionBD();
         String CONSULTA = "INSERT INTO prestamo (fechaLimite, fechaInicioPrestamo, idUsuario) VALUES (?,?,?);";
         
@@ -59,7 +59,8 @@ public class PrestamoDAO {
         try{  
            cal.setTime(sdf.parse(fechaInicio));  
         }catch(ParseException e){  
-            e.printStackTrace();  
+            System.out.println("Error al registrar fecha de prestamo");
+            return -1;
         }
         
         cal.add(Calendar.DAY_OF_MONTH, 5);  
@@ -81,9 +82,13 @@ public class PrestamoDAO {
                 
             }catch(SQLException e){
                 System.out.println("Error al registrar prestamo");
+                return -1;
             }
         }else{
             Mensaje.mostrarAlerta("Conexion no disponible", "Imposible generar el registro del prestamo, la conexion no se encuentra disponible, una disculpa.", Alert.AlertType.ERROR);
+            return -1;
         }
+        
+        return 0;
     }
 }

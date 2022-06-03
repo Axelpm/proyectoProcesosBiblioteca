@@ -26,7 +26,10 @@ import javafx.stage.Stage;
 import static proyectoprocesos.DAO.PrestamoDAO.registrarPrestamo;
 import proyectoprocesos.POJO.Prestamo;
 import proyectoprocesos.Util.Mensaje;
+import proyectoprocesos.Util.Verificacion;
+import static proyectoprocesos.Util.Verificacion.validarISBN;
 import static proyectoprocesos.Util.Verificacion.validarMatricula;
+import static proyectoprocesos.Util.Verificacion.validarRecursoBD;
 import static proyectoprocesos.Util.Verificacion.verificarPrestamos;
 
 /**
@@ -60,11 +63,13 @@ public class FXMLRegistrarPrestamoController implements Initializable {
     private void ClickRegistrar(ActionEvent event) {
         if(validarFormulario()){
             lb_datosInvalidos.setVisible(false);
-            registrarPrestamo(tf_matricula.getText());
-            Mensaje.mostrarAlerta("Registro exitoso", "El registro se guardó de manera exitosa", Alert.AlertType.INFORMATION);
+            if(registrarPrestamo(tf_matricula.getText()) == 0){
+                Mensaje.mostrarAlerta("Registro exitoso", "El registro se guardó de manera exitosa", Alert.AlertType.INFORMATION);
+                tf_ISBN.setText("");
+                tf_matricula.setText("");
+            }
         }else{
             lb_datosInvalidos.setVisible(true);
-            Mensaje.mostrarAlerta("Error al generar el registro", "Error al registrar el préstamo, inténtenlo más tarde", Alert.AlertType.ERROR);
         }
     }
 
@@ -97,6 +102,15 @@ public class FXMLRegistrarPrestamoController implements Initializable {
         }
         if(tf_ISBN.getText().isEmpty()){
             respuesta = false;
+        }else{
+            if(!validarISBN(tf_ISBN.getText())){
+                respuesta = false;
+                Mensaje.mostrarAlerta("ISBN no válido", "El ISBN introducido no es válido, favor de corregirlo.", Alert.AlertType.WARNING);
+            }
+            if(!validarRecursoBD(tf_ISBN.getText())){
+                respuesta = false;
+                Mensaje.mostrarAlerta("ISBN no encontrado", "El ISBN introducido no se encuentra en nuestra base de datos, favor de registrarlo.", Alert.AlertType.WARNING);
+            }
         }
         if(tf_matricula.getText().isEmpty()){
             respuesta = false;
