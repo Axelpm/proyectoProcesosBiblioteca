@@ -70,26 +70,50 @@ public class PrestamoDAO {
         return idUsuario;
     }
     
-    public static boolean aumentarPrestamos(String matricula){
+    public static int recuperarPrestamosVigentes(String matricula){
         int idUsuario = getIdUsuario(matricula);
         String consultaGET = "SELECT prestamosVigentes FROM usuario WHERE usuario.idUsuario = ?";
+        int prestamosVigentes = -1;
+        
+        Connection conn = ConexionBD.abrirConexionBD();
+        if(conn != null){
+            try{
+               if(idUsuario == -1)
+                   throw new SQLException();
+               
+                PreparedStatement ps = conn.prepareStatement(consultaGET);
+                ps.setInt(1, idUsuario);
+                ResultSet rs= ps.executeQuery();
+                
+                if(rs.next()){
+                    prestamosVigentes = rs.getInt("prestamosVigentes");
+                }
+            }catch(SQLException e){
+                System.out.println(e);
+                return -1;
+            }
+        }
+        
+        return prestamosVigentes;
+    }
+    
+    public static boolean aumentarPrestamos(String matricula){
+        int idUser = getIdUsuario(matricula);
+        int prestamosVigentes = recuperarPrestamosVigentes(matricula);
         String consultaUP = "UPDATE usuario SET prestamosVigentes=? WHERE usuario.idUsuario = ?";
         Connection conn = ConexionBD.abrirConexionBD();
         
         if(conn != null){
             try{
-                if(idUsuario == -1)
-                    throw new SQLException();
+                if(idUser == -1)
+                    return false;
+                if(prestamosVigentes == -1)
+                    return false;
                 
-                PreparedStatement ps = conn.prepareStatement(consultaGET);
-                ps.setInt(1, idUsuario);
-                ResultSet rs= ps.executeQuery();
-                int prestamosVigentes = rs.getInt("prestamosVigentes");
-                
-                prestamosVigentes = prestamosVigentes+1;
-                ps = conn.prepareStatement(consultaUP);
+                prestamosVigentes++;
+                PreparedStatement ps = conn.prepareStatement(consultaUP);
                 ps.setInt(1, prestamosVigentes);
-                ps.setInt(2, idUsuario);
+                ps.setInt(2, idUser);
                 ps.executeUpdate();
                 
             }catch(SQLException e){
