@@ -61,7 +61,7 @@ public class FXMLRegistrarPrestamoController implements Initializable {
 
     @FXML
     private void ClickRegistrar(ActionEvent event) {
-        if(validarFormulario()){
+        /*if(validarFormulario()){
             lb_datosInvalidos.setVisible(false);
             if(registrarPrestamo(tf_matricula.getText(), tf_ISBN.getText()) == 0){
                 Mensaje.mostrarAlerta("Registro exitoso", "El registro se guardó de manera exitosa", Alert.AlertType.INFORMATION);
@@ -72,7 +72,7 @@ public class FXMLRegistrarPrestamoController implements Initializable {
             }
         }else{
             lb_datosInvalidos.setVisible(true);
-        }
+        }*/
     }
 
     @FXML

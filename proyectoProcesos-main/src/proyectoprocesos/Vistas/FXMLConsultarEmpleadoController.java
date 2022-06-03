@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -62,8 +63,17 @@ public class FXMLConsultarEmpleadoController implements Initializable {
 
     @FXML
     private void botonSalir(ActionEvent event) {
-        Stage stageEmpleado = (Stage) textoEncabezado.getScene().getWindow();
-        stageEmpleado.close();
+        Stage stage = (Stage) textoEncabezado.getScene().getWindow();
+        try{                    
+            String path = "FXMLLogin.fxml";
+            Parent cargaFXMLPrincipal= FXMLLoader.load(getClass().getResource(path));
+            Scene scenePrincipal= new Scene(cargaFXMLPrincipal);
+            stage.setScene(scenePrincipal);
+            stage.show();    
+        }catch(IOException e){
+            Mensaje.mostrarAlerta("Error de aplicacion", "Lo sentimos no se ha podido acceder a la sección de registro de prestamos "
+                + "Documentales", Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
