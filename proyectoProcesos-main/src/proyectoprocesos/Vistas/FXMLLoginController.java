@@ -60,7 +60,7 @@ public class FXMLLoginController implements Initializable {
             String puesto = conectar.encontrarUsuarioEmpleado(usuarioRecuperado.getIdUsuario());
             switch(puesto){
                 case "Auxiliar": case "Encargado":
-                    navegacionEntreVentanas("FXMLSeleccionUsuarioPrestamo.fxml");
+                    navegacionEntreVentanas("FXMLRegistrarPrestamoAlumno.fxml");
                     break;
                 case "Estudiante":
                     navegacionEntreVentanas("FXMLConsultaLibro.fxml");
