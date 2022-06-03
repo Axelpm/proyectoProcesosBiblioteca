@@ -48,21 +48,27 @@ public class UsuarioDAO {
         return usuario;
     }
     
-    /*public String encontrarUsuarioEmpleado(int idUsuario){
-        conectarBD= ConexionBD.abrirConexionBD();
-        String puesto= "Estudiante";
+    public String encontrarUsuarioEmpleado(int idUsuario){
+        conectarBD = ConexionBD.abrirConexionBD();
+        String puesto = "Estudiante";
         if(conectarBD != null){
             try{
-                preStatement = conectarBD.prepareStatement("select puesto from empleadowhere idusuario=?");
-                
-            }catch(SQLException exceptionSQL){
-                System.err.println("Error"+exceptionSQL);
+                preStatement = conectarBD.prepareStatement("select puesto from empleado where idusuario = ?");
+                preStatement.setInt(1, idUsuario);
+                ResultSet rSet = preStatement.executeQuery();
+                if(rSet.next()){
+                    puesto = rSet.getString("puesto");
+                    return puesto;
+                }
+            }catch(SQLException excepcionSQL){
+                System.err.println("Error" + excepcionSQL);
             }
             finally{
                 ConexionBD.cerrar(preStatement);
                 ConexionBD.cerrar(conectarBD);
             }
         }
-    }*/
+        return puesto;
+    }
     
 }
