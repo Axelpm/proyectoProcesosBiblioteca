@@ -2,6 +2,9 @@ package proyectoprocesos.Conexion;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.scene.control.Alert;
 import proyectoprocesos.Util.Mensaje;
 
@@ -23,5 +26,38 @@ public class ConexionBD {
             Mensaje.mostrarAlerta("Error", "Base de datos no disponible", Alert.AlertType.ERROR);
         }
         return conn;
+    }
+    
+        public static void cerrar(ResultSet rSet){
+        try{
+            if(rSet != null){
+                rSet.close();
+            }
+        }
+        catch(SQLException sqlException){
+            sqlException.printStackTrace();
+        }
+    }
+
+    public static void cerrar(PreparedStatement pStatement){
+        try{
+            if(pStatement != null){
+                pStatement.close();
+            }
+        }
+        catch(SQLException sqlException){
+            sqlException.printStackTrace();
+        }
+    }
+
+    public static void cerrar(Connection connect){
+        try{
+            if(connect != null){
+                connect.close();
+            }
+        }
+        catch(SQLException sqlException){
+            sqlException.printStackTrace();
+        }
     }
 }
