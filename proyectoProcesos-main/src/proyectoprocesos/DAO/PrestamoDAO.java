@@ -59,10 +59,10 @@ public class PrestamoDAO {
                     ResultSet rs= ps.executeQuery();
                     
                     if(rs.next()){
-                       idUsuario = rs.getInt("idUsuario");
+                       idUsuario = rs.getInt("idRecursodocumental");
                     }
                 }catch(SQLException e){
-                    System.out.println("Error al recuperar el idUsuario");
+                    System.out.println("Error al recuperar el idRecursodocumental");
                     return idUsuario;
                 }
         }
